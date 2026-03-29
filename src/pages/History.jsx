@@ -1,12 +1,8 @@
 
-
+import Navbar from "../components/Navbar.jsx"
 const History = () => {
     return (
-        <div>
-            <h1>
-                History
-            </h1>
-        </div>
+        <Navbar />
     ) 
 }
 

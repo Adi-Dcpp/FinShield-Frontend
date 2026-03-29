@@ -1,12 +1,8 @@
-
+import Navbar from "../components/Navbar.jsx"
 
 const FraudDetector = () => {
     return (
-        <div>
-            <h1>
-                FraudDetector
-            </h1>
-        </div>
+        <Navbar />
     ) 
 }
 

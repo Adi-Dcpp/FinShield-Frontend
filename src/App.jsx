@@ -4,9 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 
 function App() {
   return (
-    <main className="theme-page">
-      <RouterProvider router={AppRouter} />
-    </main>
+    <RouterProvider router={AppRouter} />
   );
 }
 

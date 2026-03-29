@@ -1,11 +1,9 @@
-
+import Navbar from "../components/Navbar.jsx"
 
 const Simulator = () => {
     return (
         <div>
-            <h1>
-                Simulator
-            </h1>
+            <Navbar />
         </div>
     ) 
 }
