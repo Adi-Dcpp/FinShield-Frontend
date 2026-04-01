@@ -1,11 +1,25 @@
-const PhoneUI = () => {
-
-  const data = {
-    amount: 180000,
-    merchant: "Crypto Wallet Transfer",
-    city: "London",
-    deviceId: "dev-new-1774817444741"
+const PhoneUI = ({ data = {} }) => {
+  const liveData = {
+    amount: data.amount || "",
+    merchant: data.merchant || "Crypto Wallet Transfer",
+    city: data.city || "London",
+    deviceId: data.deviceId || "dev-new-1774817444741",
+    timeStamp: data.timeStamp || "",
   };
+
+  const formattedAmount = liveData.amount === "" ? "0" : Number(liveData.amount).toLocaleString();
+  const formattedTime = liveData.timeStamp ? new Date(liveData.timeStamp).toLocaleString() : "Live preview";
+  const amountLength = formattedAmount.length;
+  const amountSizeClass =
+    amountLength > 18
+      ? "text-[0.95rem]"
+      : amountLength > 15
+      ? "text-[1.05rem]"
+      : amountLength > 12
+      ? "text-[1.2rem]"
+      : amountLength > 9
+      ? "text-[1.45rem]"
+      : "text-[2.5rem]";
 
   return (
     <div className="relative isolate h-205 w-100 max-w-[94vw] lg:max-w-none">
@@ -35,12 +49,17 @@ const PhoneUI = () => {
 
               <div className="rounded-3xl border border-white/16 bg-white/8 p-6 backdrop-blur-md">
                 <p className="text-xs uppercase tracking-[0.22em] text-cyan-200/90">Payment Alert</p>
-                <h2 className="mt-2 text-[1.7rem] font-semibold tracking-tight text-white">{data.merchant}</h2>
-                <p className="mt-1 text-sm text-white/70">{data.merchant}</p>
+                <h2 className="mt-2 text-[1.7rem] font-semibold tracking-tight text-white">{liveData.merchant}</h2>
+                <p className="mt-1 text-sm text-white/70">{formattedTime}</p>
 
                 <div className="mt-5 rounded-2xl border border-white/14 bg-black/28 px-5 py-5 text-center">
                   <p className="text-xs text-white/55">Amount</p>
-                  <p className="mt-1 text-[2.5rem] font-semibold leading-none text-white">INR {data.amount.toLocaleString()}</p>
+                  <div className="mt-1 flex flex-wrap items-end justify-center gap-x-2 gap-y-1 leading-none text-white">
+                    <span className="text-base font-medium">INR</span>
+                    <span className={`max-w-full whitespace-nowrap font-semibold tracking-tight ${amountSizeClass}`}>
+                      {formattedAmount}
+                    </span>
+                  </div>
                   <p className="mt-2 text-xs text-cyan-100/80">Live fraud scan in progress</p>
                 </div>
               </div>
@@ -50,15 +69,15 @@ const PhoneUI = () => {
               <div className="rounded-2xl border border-white/14 bg-white/7 p-5 text-sm backdrop-blur-md">
                 <div className="flex items-center justify-between">
                   <span className="text-white/60">Merchant</span>
-                  <span className="max-w-48 truncate text-right text-white">{data.merchant}</span>
+                  <span className="max-w-48 truncate text-right text-white">{liveData.merchant}</span>
                 </div>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-white/60">Location</span>
-                  <span className="text-white">{data.city}</span>
+                  <span className="text-white">{liveData.city}</span>
                 </div>
                 <div className="mt-2 flex items-center justify-between">
                   <span className="text-white/60">Device</span>
-                  <span className="max-w-48 truncate text-right text-white">{data.deviceId}</span>
+                  <span className="max-w-48 truncate text-right text-white">{liveData.deviceId}</span>
                 </div>
               </div>
 

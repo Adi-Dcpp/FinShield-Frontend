@@ -1,13 +1,28 @@
-const ReviewPhoneUI = ({ reviewData, onProceed, onDecline }) => {
+const ReviewPhoneUI = ({ reviewData, onProceed, onDecline, loadingAction }) => {
 
-  const { meta, riskPoint, decision, riskFactors, explanation } = reviewData;
+  const {
+    meta = {},
+    riskPoint = 0,
+    decision = "REVIEW",
+    riskFactors = [],
+    explanation = "",
+  } = reviewData || {};
+
+  // Determine risk level based on riskPoint
+  const getRiskLevel = () => {
+    if (riskPoint >= 70) return "HIGH_RISK";
+    if (riskPoint >= 35) return "MEDIUM_RISK";
+    return "LOW_RISK";
+  };
+
+  const riskLevel = getRiskLevel();
 
   const decisionColor =
-    decision === "BLOCK"
+    riskLevel === "HIGH_RISK"
       ? "text-red-400 bg-red-500/10 border-red-400/20"
-      : decision === "APPROVE"
-      ? "text-green-400 bg-green-500/10 border-green-400/20"
-      : "text-yellow-400 bg-yellow-500/10 border-yellow-400/20";
+      : riskLevel === "MEDIUM_RISK"
+      ? "text-yellow-400 bg-yellow-500/10 border-yellow-400/20"
+      : "text-green-400 bg-green-500/10 border-green-400/20";
 
   return (
     <div className="relative isolate h-205 w-100 max-w-[94vw] lg:max-w-none">
@@ -45,7 +60,7 @@ const ReviewPhoneUI = ({ reviewData, onProceed, onDecline }) => {
           {/* 💰 Amount */}
           <div className="text-center mt-2">
             <p className="text-3xl font-semibold leading-none">
-              ₹{meta.amount.toLocaleString()}
+              ₹{Number(meta.amount ?? 0).toLocaleString()}
             </p>
           </div>
 
@@ -58,7 +73,7 @@ const ReviewPhoneUI = ({ reviewData, onProceed, onDecline }) => {
             </h1>
 
             <span className={`inline-block mt-2 px-3 py-1 rounded-full text-xs border ${decisionColor}`}>
-              {decision}
+              {riskLevel}
             </span>
           </div>
 
@@ -85,16 +100,20 @@ const ReviewPhoneUI = ({ reviewData, onProceed, onDecline }) => {
 
           {/* 🔘 Buttons */}
           <div className="flex gap-3 mt-2">
-            <button className="flex-1 py-2 rounded-xl
+            <button
+              className="flex-1 py-2 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed
               bg-green-500/20 text-green-400 hover:bg-green-500/30 transition"
-              onClick={onProceed}>
-              Proceed
+              onClick={onProceed}
+              disabled={loadingAction !== null}>
+              {loadingAction === "proceed" ? "Processing..." : "Proceed"}
             </button>
 
-            <button className="flex-1 py-2 rounded-xl
+            <button
+              className="flex-1 py-2 rounded-xl disabled:opacity-60 disabled:cursor-not-allowed
               bg-red-500/20 text-red-400 hover:bg-red-500/30 transition"
-              onClick={onDecline}>
-              Decline
+              onClick={onDecline}
+              disabled={loadingAction !== null}>
+              {loadingAction === "decline" ? "Processing..." : "Decline"}
             </button>
           </div>
 
