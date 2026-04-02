@@ -52,6 +52,11 @@ const Navbar = () => {
               <Link
                 key={tab.name}
                 to={tab.path}
+                onClick={() => {
+                  if (tab.path === "/history") {
+                    window.dispatchEvent(new Event("finshield:history-refresh"));
+                  }
+                }}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200
                   
                   ${isActive
