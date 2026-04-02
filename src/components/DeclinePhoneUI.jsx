@@ -1,6 +1,6 @@
 const DeclinePhoneUI = ({ data }) => {
-
-  const { amount, merchant, timestamp } = data;
+  const transaction = data?.meta ?? data ?? {};
+  const { amount = 0, merchant = "", timestamp = new Date().toISOString() } = transaction;
 
   return (
     <div className="relative isolate h-205 w-100 max-w-[94vw] lg:max-w-none">

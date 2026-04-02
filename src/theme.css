@@ -30,6 +30,46 @@ body {
   overflow-x: hidden;
 }
 
+/* Normalize all input field styling */
+input,
+textarea,
+select {
+  color-scheme: dark;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="time"],
+input[type="search"],
+textarea {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important;
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Prevent autofill from making inputs white */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.05) inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+input:-webkit-autofill::first-line {
+  color: #ffffff !important;
+}
+
 /*
   Global permanent background layers.
   These are fixed to viewport and never need component markup.
