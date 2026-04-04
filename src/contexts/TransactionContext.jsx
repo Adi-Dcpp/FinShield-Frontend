@@ -3,7 +3,8 @@ import {
     reviewTransaction,
     proceedTransaction,
     declineTransaction,
-    history
+    history,
+    checkMessage
 } from "../services/Api";
 
 const TransactionContext = createContext();
@@ -25,8 +26,12 @@ const TransactionProvider = ({ children }) => {
         return await history(data);
     }
 
+    const check = async (data) => {
+        return await checkMessage(data);
+    }
+
     return (
-        <TransactionContext.Provider value={{ review, proceed, decline, getHistory }}>
+        <TransactionContext.Provider value={{ review, proceed, decline, getHistory, check }}>
             {children}
         </TransactionContext.Provider>
     )
