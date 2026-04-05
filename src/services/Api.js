@@ -12,9 +12,12 @@ const declineTransaction = (data) => API.post("/transactions/decline", data);
 
 const history = (data) => API.post("/transactions/history", data);
 
+const checkMessage = (data) => API.post("/messages/check", data);
+
 export {
     reviewTransaction,
     proceedTransaction,
     declineTransaction,
-    history
+    history,
+    checkMessage
 }
