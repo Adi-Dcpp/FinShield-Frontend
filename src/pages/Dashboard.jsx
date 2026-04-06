@@ -1,6 +1,12 @@
 import FeatureCard from "../components/featureCard";
+import { useState } from "react";
+import Modal from "../components/Modal";
 
 const DashBoard = () => {
+
+
+  const [openModal, setOpenModal] = useState(null);
+
   const features = [
     {
       title: "Transaction Simulation",
@@ -22,38 +28,71 @@ const DashBoard = () => {
     },
   ];
 
- return (
-  <div className="px-10 py-10">
+  const detailsData = {
+    "Transaction Simulation": [
+      "Test transactions before real execution",
+      "AI-based risk scoring",
+      "Detect fraud before approval"
+    ],
+    "Fraud Detection": [
+      "Analyze suspicious messages",
+      "Detect scam patterns",
+      "AI-based fraud classification"
+    ],
+    "History": [
+      "View all past transactions",
+      "Track risk decisions",
+      "Filter approve/review/block"
+    ]
+  };
 
-    {/* Heading */}
-    <div className="text-center mb-12">
+  return (
+    <div className="px-10 py-10">
 
-      <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text tracking-tight">
-        FinShield
-      </h1>
+      {}
+      <div className="text-center mb-12">
 
-      <p className="text-cyan-400 mt-2 text-lg font-medium">
-        Secure every payment decision
-      </p>
+        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-cyan-400 to-purple-500 text-transparent bg-clip-text tracking-tight">
+          FinShield
+        </h1>
 
-     <p className="mt-3 text-sm text-white/60 max-w-xl mx-auto leading-relaxed">
-  FinShield protects every transaction with intelligent risk analysis —
-  <span className="text-cyan-400 font-medium"> because your money deserves more than trust.</span>
-</p>
-      <div className="h-[2px] w-40 mx-auto mt-4 
-        bg-gradient-to-r from-transparent via-cyan-400 to-transparent 
-        blur-sm opacity-70" />
+        <p className="text-cyan-400 mt-2 text-lg font-medium">
+          Secure every payment decision
+        </p>
+
+        <p className="mt-3 text-sm text-white/60 max-w-xl mx-auto leading-relaxed">
+          FinShield protects every transaction with intelligent risk analysis —
+          <span className="text-cyan-400 font-medium">
+            {" "}because your money deserves more than trust.
+          </span>
+        </p>
+
+        <div className="h-[2px] w-40 mx-auto mt-4 
+          bg-gradient-to-r from-transparent via-cyan-400 to-transparent 
+          blur-sm opacity-70" />
+      </div>
+
+      {}
+      <div className="grid md:grid-cols-3 gap-6">
+        {features.map((item, index) => (
+          <FeatureCard
+            key={index}
+            {...item}
+            onDetailsClick={() => setOpenModal(item.title)} 
+          />
+        ))}
+      </div>
+
+      {}
+      <Modal
+        isOpen={openModal !== null}
+        onClose={() => setOpenModal(null)}
+        title={openModal}
+        points={detailsData[openModal] || []}
+      />
 
     </div>
-
-    {/* 🔥 CARDS (THIS WAS MISSING) */}
-    <div className="grid md:grid-cols-3 gap-6">
-      {features.map((item, index) => (
-        <FeatureCard key={index} {...item} />
-      ))}
-    </div>
-
-  </div>
-);
+  );
 };
+
 export default DashBoard;
