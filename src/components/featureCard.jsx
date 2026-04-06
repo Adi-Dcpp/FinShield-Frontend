@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const FeatureCard = ({ title, desc, icon, route }) => {
+const FeatureCard = ({ title, desc, icon, route, onDetailsClick }) => {
   const navigate = useNavigate();
 
   return (
@@ -69,17 +69,11 @@ const FeatureCard = ({ title, desc, icon, route }) => {
 
         {/* See Details (Secondary) */}
         <button
-          className="
-          px-3 py-2 text-sm rounded-lg
-          border border-purple-400/30
-          text-purple-300
-          hover:bg-purple-500/10
-          transition
-          "
-        >
-          See Details →
-        </button>
-
+  onClick={onDetailsClick}
+  className="text-sm text-white/60 hover:text-white"
+>
+  See Details →
+</button>
       </div>
     </div>
   );
